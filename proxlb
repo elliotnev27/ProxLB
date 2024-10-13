@@ -247,34 +247,34 @@ def initialize_config_options(config_path):
         proxlb_config['proxmox_api_user']            = config['proxmox']['api_user']
         proxlb_config['proxmox_api_pass']            = config['proxmox']['api_pass']
         proxlb_config['proxmox_api_ssl_v']           = config['proxmox']['verify_ssl']
-        proxlb_config['proxmox_api_timeout']         = config['proxmox'].get('timeout', 10)
+        proxlb_config['proxmox_api_timeout']         = config['proxmox'].getint('timeout', 10)
         # VM Balancing
-        proxlb_config['vm_balancing_enable']         = config['vm_balancing'].get('enable', 1)
+        proxlb_config['vm_balancing_enable']         = config['vm_balancing'].getbool('enable', 1)
         proxlb_config['vm_balancing_method']         = config['vm_balancing'].get('method', 'memory')
         proxlb_config['vm_balancing_mode']           = config['vm_balancing'].get('mode', 'used')
         proxlb_config['vm_balancing_mode_option']    = config['vm_balancing'].get('mode_option', 'bytes')
         proxlb_config['vm_balancing_type']           = config['vm_balancing'].get('type', 'vm')
-        proxlb_config['vm_balanciness']              = config['vm_balancing'].get('balanciness', 10)
-        proxlb_config['vm_parallel_migrations']      = config['vm_balancing'].get('parallel_migrations', 1)
+        proxlb_config['vm_balanciness']              = config['vm_balancing'].getint('balanciness', 10)
+        proxlb_config['vm_parallel_migrations']      = config['vm_balancing'].getbool('parallel_migrations', 1)
         proxlb_config['vm_maintenance_nodes']        = config['vm_balancing'].get('maintenance_nodes', '')
         proxlb_config['vm_ignore_nodes']             = config['vm_balancing'].get('ignore_nodes', '')
         proxlb_config['vm_ignore_vms']               = config['vm_balancing'].get('ignore_vms', '')
-        proxlb_config['vm_enforce_affinity_groups']  = config['vm_balancing'].get('enforce_affinity_groups', 1)
+        proxlb_config['vm_enforce_affinity_groups']  = config['vm_balancing'].getbool('enforce_affinity_groups', 1)
         # Storage Balancing
-        proxlb_config['storage_balancing_enable']    = config['storage_balancing'].get('enable', 0)
+        proxlb_config['storage_balancing_enable']    = config['storage_balancing'].getbool('enable', 0)
         proxlb_config['storage_balancing_method']    = config['storage_balancing'].get('method', 'disk_space')
-        proxlb_config['storage_balanciness']         = config['storage_balancing'].get('balanciness', 10)
-        proxlb_config['storage_parallel_migrations'] = config['storage_balancing'].get('parallel_migrations', 1)
+        proxlb_config['storage_balanciness']         = config['storage_balancing'].getint('balanciness', 10)
+        proxlb_config['storage_parallel_migrations'] = config['storage_balancing'].getint('parallel_migrations', 1)
         # Update Support
-        proxlb_config['update_service']              = config['update_service'].get('enable', 0)
+        proxlb_config['update_service']              = config['update_service'].getbool('enable', 0)
         # API
-        proxlb_config['api']                         = config['update_service'].get('enable', 0)
+        proxlb_config['api']                         = config['update_service'].getbool('enable', 0)
         # Service
-        proxlb_config['master_only']                 = config['service'].get('master_only', 0)
-        proxlb_config['daemon']                      = config['service'].get('daemon', 1)
-        proxlb_config['schedule']                    = config['service'].get('schedule', 24)
+        proxlb_config['master_only']                 = config['service'].getbool('master_only', 0)
+        proxlb_config['daemon']                      = config['service'].getbool('daemon', 1)
+        proxlb_config['schedule']                    = config['service'].getint('schedule', 24)
         proxlb_config['log_verbosity']               = config['service'].get('log_verbosity', 'CRITICAL')
-        proxlb_config['config_version']              = config['service'].get('config_version', 2)
+        proxlb_config['config_version']              = config['service'].getint('config_version', 2)
     except configparser.NoSectionError:
         logging.critical(f'{error_prefix} Could not find the required section.')
         sys.exit(2)
