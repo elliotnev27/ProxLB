@@ -297,8 +297,11 @@ def __update_config_parser_bools(proxlb_config):
     """ Update bools in config from configparser to real bools """
     info_prefix   = 'Info: [config-bool-converter]:'
 
+    exclude_section = ['storage_balanciness', 'vm_balanciness', 'schedule', 'config_version']
     # Normalize and update config parser values to bools.
     for section, option_value in proxlb_config.items():
+        if section in exclude_section:
+            continue
 
         if option_value in [1, '1', 'yes', 'Yes', 'true', 'True', 'enable']:
             logging.info(f'{info_prefix} Converting {section} to bool: True.')
